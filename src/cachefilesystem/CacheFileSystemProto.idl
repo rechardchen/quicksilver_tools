@@ -1,0 +1,28 @@
+[
+uuid(b7d4b182-1c00-4d5f-9532-c95fffe044d3),
+version(1.0)
+]
+
+[
+    implicit_handle (handle_t CFS_IfHandle)
+]
+
+interface CacheFileSystemProto
+{
+    typedef int CacheFileHandle;
+    typedef struct _CacheFileInfo
+    {
+        CacheFileHandle handle;
+        int size;
+    } CacheFileInfo;
+
+    boolean CFS_Exists([in] int ver, [in,string] const char* path);
+    CacheFileInfo CFS_Open([in] int ver, [in,string] const char* path);
+    void CFS_Close([in] CacheFileHandle handle);
+
+    CacheFileHandle CFS_Create([in] int ver, [in, string] const char* path);
+    void CFS_Upload([in] CacheFileHandle handle, [in] int bufferSize, [in, size_is(bufferSize)] const char buffer[]);
+    boolean CFS_Commit([in] CacheFileHandle handle);
+
+    
+}
